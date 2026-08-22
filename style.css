@@ -1,0 +1,249 @@
+/*
+ *  style.css
+ *  Blue Ridge Relay web viewer
+ */
+
+:root {
+  --panel-bg: #ffffff;
+  --text: #1c1c1e;
+  --text-dim: #6c6c70;
+  --border: #e3e3e6;
+  --accent: #0a84ff;
+  --panel-width: 320px;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  font: 15px/1.45 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+}
+
+#map {
+  position: absolute;
+  inset: 0 0 0 var(--panel-width);
+}
+
+#panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: var(--panel-width);
+  background: var(--panel-bg);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+}
+
+h1 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.01em;
+}
+
+h2 {
+  margin: 0 0 8px;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+}
+
+.subtitle {
+  margin: 4px 0 0;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.hint {
+  margin: 8px 0 0;
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+label {
+  display: block;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+
+.row { display: flex; gap: 8px; }
+
+input {
+  flex: 1;
+  min-width: 0;
+  padding: 9px 11px;
+  font: 16px/1 ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+}
+
+input:focus {
+  outline: 2px solid var(--accent);
+  outline-offset: -1px;
+  border-color: transparent;
+}
+
+button {
+  padding: 9px 15px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #fff;
+  background: var(--accent);
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+button:hover { filter: brightness(1.08); }
+
+/* Status ------------------------------------------------------------------ */
+
+.status-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--text-dim);
+}
+
+.dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: none;
+  background: #c7c7cc;
+}
+
+.dot.ok { background: #34c759; }
+.dot.error { background: #ff3b30; }
+
+/* Runners ----------------------------------------------------------------- */
+
+#runner-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.runner {
+  display: grid;
+  grid-template-columns: 12px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 9px;
+  align-items: start;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--border);
+}
+
+.runner:last-child { border-bottom: none; padding-bottom: 0; }
+
+.runner-dot {
+  grid-row: 1 / 3;
+  width: 10px;
+  height: 10px;
+  margin-top: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.runner.stale .runner-dot { background: #c7c7cc; }
+.runner.stale { opacity: 0.65; }
+
+.runner-name { font-weight: 600; }
+
+.runner-detail {
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* Legend ------------------------------------------------------------------ */
+
+.legend-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 13px;
+}
+
+.legend-list li { display: flex; align-items: center; gap: 8px; }
+
+.legend-list i {
+  width: 16px;
+  height: 4px;
+  border-radius: 2px;
+  flex: none;
+}
+
+footer {
+  margin-top: auto;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+footer a { color: inherit; }
+
+/* Privacy and support ---------------------------------------------------- */
+
+.legal-page {
+  min-height: 100%;
+  height: auto;
+  background: var(--panel-bg);
+}
+
+.legal-page main {
+  width: min(720px, calc(100% - 40px));
+  margin: 0 auto;
+  padding: 48px 0 72px;
+}
+
+.legal-page h1 { font-size: 30px; }
+.legal-page h2 { margin-top: 32px; }
+.legal-page p, .legal-page li { max-width: 68ch; }
+.legal-page a { color: var(--accent); }
+
+/* Dark mode --------------------------------------------------------------- */
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --panel-bg: #1c1c1e;
+    --text: #f2f2f7;
+    --text-dim: #98989e;
+    --border: #38383a;
+  }
+  input { background: #2c2c2e; }
+}
+
+/* Narrow screens ---------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  :root { --panel-width: 100%; }
+
+  #panel {
+    bottom: auto;
+    height: auto;
+    max-height: 52%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  #map { inset: 52% 0 0 0; }
+}
